@@ -1,5 +1,7 @@
 package cap1;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 
 public final class Main  {
@@ -90,7 +92,7 @@ public final class Main  {
         return s;
     }
 
-    public static void removeNegative(List<Double> v) {
+    public static void removeNegative(@NotNull List<Double> v) {
         for (Iterator<Double> it = v.iterator(); it.hasNext();) { // Removing negative numbers using a Iterator
             if (it.next() < 0) it.remove();
         }
@@ -119,7 +121,7 @@ public final class Main  {
 }
 
 class Lists {
-    public static <T> List<T> toList(T...arr) {
+    public static <T> List<T> toList(T...arr) { // vararg is packaged to array
         List<T> list = new ArrayList<T>();
         for (T elt : arr) list.add(elt);
         return list;
@@ -128,9 +130,19 @@ class Lists {
 
 
     public  void fillList(){
-        List<Integer> ints = Lists.toList(new Integer[]{1,2,3});
-        List<String> strings = Lists.toList(new String[]{"hello","world"});
+        List<Integer> ints = Lists.toList(1,2,3);
+        List<String> strings = Lists.toList(new String[]{"hello","world"}); // This is the same as the previus line
 
 
+        List ints2 = new ArrayList<Integer>();
+        Lists.addAll(ints2, 1, 2);
+        Lists.addAll(ints2, new Integer[] { 3, 4 });
+        assert ints.toString().equals("[1, 2, 3, 4]");
+
+
+    }
+
+    public static <T> void addAll(List<T> list, T... arr) {  // You pass parameters before a vararg
+        for (T elt : arr) list.add(elt);
     }
 }
